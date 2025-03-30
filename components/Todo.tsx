@@ -3,6 +3,15 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+// Add a type definition for the window.ENV object
+declare global {
+  interface Window {
+    ENV?: {
+      NEXT_PUBLIC_API_URL: string;
+    };
+  }
+}
+
 interface Todo {
   id: number
   title: string
@@ -19,8 +28,16 @@ const Todo = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'
-  const API_URL = `${BASE_URL}/api`
+  // Get the API URL from window.ENV if available (for production) or fallback to process.env (for development)
+  const getApiUrl = () => {
+    if (typeof window !== 'undefined' && window.ENV?.NEXT_PUBLIC_API_URL) {
+      return window.ENV.NEXT_PUBLIC_API_URL;
+    }
+    return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+  };
+
+  const BASE_URL = getApiUrl();
+  const API_URL = `${BASE_URL}/api`;
 
   useEffect(() => {
     fetchTodos()
