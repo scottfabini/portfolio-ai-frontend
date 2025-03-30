@@ -11,12 +11,11 @@ const Navbar = () => {
   const pathname = usePathname()
 
   const navItems = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/#about' },
     { name: 'Experience', href: '/#experience' },
+    { name: 'Education', href: '/#education' },
     { name: 'Projects', href: '/#projects' },
-    { name: 'Skills', href: '/#skills' },
-    { name: 'Contact', href: '/#contact' },
+    { name: 'About', href: '/#about' },
+    { name: 'Skills', href: '/#skills' }
   ]
 
   const toggleMenu = () => {
@@ -39,12 +38,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-sm font-medium transition-colors duration-200 ${
-                  pathname === item.href
-                    ? 'text-primary-600 dark:text-primary-400'
-                    : 'text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400'
-                }`}
-              >
+                className="text-sm font-medium transition-colors duration-200 text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400">
                 {item.name}
               </Link>
             ))}
