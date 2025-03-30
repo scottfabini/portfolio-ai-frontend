@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 const About = () => {
   return (
-    <section id="about" className="py-20">
+    <section id="about" className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -28,11 +28,11 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg"
+            className="bg-white dark:bg-gray-700 rounded-lg p-8 shadow-sm"
           >
             <div className="space-y-6">
               <div className="prose dark:prose-invert max-w-none">
-                <p className="text-lg leading-relaxed">
+                <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
                   As a Senior Software Engineer on the Customer Engineering Team at Adobe, I specialize in transforming complex technical challenges into customer success stories. My role uniquely combines deep technical expertise with customer-facing responsibilities, allowing me to bridge the gap between engineering and customer needs.
                 </p>
                 
@@ -51,7 +51,7 @@ const About = () => {
                   </div>
                 </div>
 
-                <p className="text-lg leading-relaxed mt-8">
+                <p className="text-lg leading-relaxed mt-8 text-gray-600 dark:text-gray-300">
                   My background in hardware engineering and software development provides a unique perspective on system architecture. This diverse experience enables me to deliver comprehensive solutions that address both technical and business needs.
                 </p>
               </div>
