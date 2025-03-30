@@ -69,7 +69,7 @@ const Todo = () => {
       setError(null)
     } catch (err) {
       console.error('Error fetching todos:', err)
-      setError('Failed to load todos. Please try again later.')
+      setError('Failed to load todos. Backend is not deployed at this time.')
     } finally {
       setIsLoading(false)
     }
@@ -96,7 +96,7 @@ const Todo = () => {
       setNewTodo({ title: '', description: '' })
     } catch (err) {
       console.error('Error creating todo:', err)
-      setError('Failed to create todo. Please try again.')
+      setError('Failed to create todo. Backend is not deployed at this time.')
     }
   }
 
@@ -121,7 +121,7 @@ const Todo = () => {
       )
     } catch (err) {
       console.error('Error updating todo:', err)
-      setError('Failed to update todo. Please try again.')
+      setError('Failed to update todo. Backend is not deployed at this time.')
     }
   }
 
@@ -138,7 +138,7 @@ const Todo = () => {
       setTodos(todos.filter((t) => t.id !== todo.id))
     } catch (err) {
       console.error('Error deleting todo:', err)
-      setError('Failed to delete todo. Please try again.')
+      setError('Failed to delete todo. Backend is not deployed at this time.')
     }
   }
 
