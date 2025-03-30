@@ -11,9 +11,9 @@ const Navbar = () => {
   const pathname = usePathname()
 
   const navItems = [
-    { name: 'Experience', href: '/#experience' },
-    { name: 'Education', href: '/#education' },
     { name: 'Projects', href: '/#projects' },
+    { name: 'Education', href: '/#education' },
+    { name: 'Experience', href: '/#experience' },
     { name: 'About', href: '/#about' },
     { name: 'Skills', href: '/#skills' }
   ]
