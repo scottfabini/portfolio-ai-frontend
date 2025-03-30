@@ -11,6 +11,9 @@ npm ci
 # Create scripts directory if it doesn't exist
 mkdir -p scripts
 
+# Show the current API URL
+echo "NEXT_PUBLIC_API_URL is set to: $NEXT_PUBLIC_API_URL"
+
 # Create the environment update script
 echo "Creating update-env.js script..."
 cat > scripts/update-env.js << 'EOF'

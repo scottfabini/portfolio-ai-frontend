@@ -36,69 +36,109 @@ const Todo = () => {
     return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
   };
 
-  const BASE_URL = getApiUrl();
-  const API_URL = `${BASE_URL}/api`;
+  const getApiEndpoint = () => {
+    // Get the base URL
+    const baseUrl = getApiUrl();
+    console.log('Base URL:', baseUrl);
+    
+    // Check if it already includes /api
+    if (baseUrl.endsWith('/api')) {
+      return `${baseUrl}/todos`;
+    } else {
+      return `${baseUrl}/api/todos`;
+    }
+  };
 
+  // Use this for all API calls
+  const API_ENDPOINT = getApiEndpoint();
+  
   useEffect(() => {
-    fetchTodos()
+    console.log('Using API endpoint:', API_ENDPOINT);
+    fetchTodos();
   }, [])
-
+  
   const fetchTodos = async () => {
     try {
-      const response = await fetch(`${API_URL}/todos`)
-      if (!response.ok) throw new Error('Failed to fetch todos')
+      setIsLoading(true)
+      const response = await fetch(API_ENDPOINT)
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`)
+      }
       const data = await response.json()
       setTodos(data)
+      setError(null)
     } catch (err) {
-      setError('Failed to load todos')
-      console.error(err)
+      console.error('Error fetching todos:', err)
+      setError('Failed to load todos. Please try again later.')
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleCreateTodo = async () => {
+    if (!newTodo.title.trim()) return
+
     try {
-      const response = await fetch(`${API_URL}/todos`, {
+      const response = await fetch(API_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(newTodo),
       })
-      if (!response.ok) throw new Error('Failed to create todo')
-      const data = await response.json()
-      setTodos([...todos, data])
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`)
+      }
+
+      const createdTodo = await response.json()
+      setTodos([...todos, createdTodo])
       setNewTodo({ title: '', description: '' })
     } catch (err) {
-      setError('Failed to create todo')
-      console.error(err)
+      console.error('Error creating todo:', err)
+      setError('Failed to create todo. Please try again.')
     }
   }
 
-  const handleToggle = async (id: number) => {
+  const handleToggleComplete = async (todo: Todo) => {
     try {
-      const response = await fetch(`${API_URL}/todos/${id}/toggle`, {
-        method: 'PATCH',
+      const updatedTodo = { ...todo, completed: !todo.completed }
+      const response = await fetch(`${API_ENDPOINT}/${todo.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedTodo),
       })
-      if (!response.ok) throw new Error('Failed to toggle todo')
-      const data = await response.json()
-      setTodos(todos.map(todo => todo.id === id ? data : todo))
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`)
+      }
+
+      const returnedTodo = await response.json()
+      setTodos(
+        todos.map((t) => (t.id === returnedTodo.id ? returnedTodo : t))
+      )
     } catch (err) {
-      setError('Failed to toggle todo')
-      console.error(err)
+      console.error('Error updating todo:', err)
+      setError('Failed to update todo. Please try again.')
     }
   }
 
-  const handleDelete = async (id: number) => {
+  const handleDeleteTodo = async (todo: Todo) => {
     try {
-      const response = await fetch(`${API_URL}/todos/${id}`, {
+      const response = await fetch(`${API_ENDPOINT}/${todo.id}`, {
         method: 'DELETE',
       })
-      if (!response.ok) throw new Error('Failed to delete todo')
-      setTodos(todos.filter(todo => todo.id !== id))
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`)
+      }
+
+      setTodos(todos.filter((t) => t.id !== todo.id))
     } catch (err) {
-      setError('Failed to delete todo')
-      console.error(err)
+      console.error('Error deleting todo:', err)
+      setError('Failed to delete todo. Please try again.')
     }
   }
 
@@ -107,7 +147,7 @@ const Todo = () => {
     if (!editingTodo) return
 
     try {
-      const response = await fetch(`${API_URL}/todos/${editingTodo.id}`, {
+      const response = await fetch(`${API_ENDPOINT}/${editingTodo.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editingTodo),
@@ -155,7 +195,7 @@ const Todo = () => {
         )}
 
         <div className="max-w-2xl mx-auto">
-          <form onSubmit={handleSubmit} className="mb-8">
+          <form onSubmit={handleCreateTodo} className="mb-8">
             <div className="flex flex-col md:flex-row gap-4">
               <input
                 type="text"
@@ -223,7 +263,7 @@ const Todo = () => {
                 ) : (
                   <div className="flex items-start gap-4">
                     <button
-                      onClick={() => handleToggle(todo.id)}
+                      onClick={() => handleToggleComplete(todo)}
                       className={`mt-1 w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                         todo.completed
                           ? 'bg-primary-600 border-primary-600'
@@ -288,7 +328,7 @@ const Todo = () => {
                         </svg>
                       </button>
                       <button
-                        onClick={() => handleDelete(todo.id)}
+                        onClick={() => handleDeleteTodo(todo)}
                         className="p-2 text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                       >
                         <svg

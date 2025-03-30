@@ -4,6 +4,7 @@ frontend:
     preBuild:
       commands:
         - echo "Preparing build environment..."
+        - echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL"
         - chmod +x amplify-build.sh
     build:
       commands:
@@ -32,4 +33,7 @@ frontend:
   redirects:
     - source: '</^[^.]+$|\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|ttf|map|json)$)([^.]+$)/'
       target: '/index.html'
-      status: '200' 
+      status: '200'
+  environmentVariables:
+    - name: NEXT_PUBLIC_API_URL
+      value: https://main.d3ei5xwwp69gjb.amplifyapp.com 
