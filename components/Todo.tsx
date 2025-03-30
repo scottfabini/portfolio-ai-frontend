@@ -19,7 +19,8 @@ const Todo = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'
+  const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'
+  const API_URL = `${BASE_URL}/api`
 
   useEffect(() => {
     fetchTodos()
@@ -27,7 +28,7 @@ const Todo = () => {
 
   const fetchTodos = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/todos`)
+      const response = await fetch(`${API_URL}/todos`)
       if (!response.ok) throw new Error('Failed to fetch todos')
       const data = await response.json()
       setTodos(data)
@@ -42,7 +43,7 @@ const Todo = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const response = await fetch(`${API_URL}/api/todos`, {
+      const response = await fetch(`${API_URL}/todos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTodo),
@@ -59,7 +60,7 @@ const Todo = () => {
 
   const handleToggle = async (id: number) => {
     try {
-      const response = await fetch(`${API_URL}/api/todos/${id}/toggle`, {
+      const response = await fetch(`${API_URL}/todos/${id}/toggle`, {
         method: 'PATCH',
       })
       if (!response.ok) throw new Error('Failed to toggle todo')
@@ -73,7 +74,7 @@ const Todo = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      const response = await fetch(`${API_URL}/api/todos/${id}`, {
+      const response = await fetch(`${API_URL}/todos/${id}`, {
         method: 'DELETE',
       })
       if (!response.ok) throw new Error('Failed to delete todo')
@@ -89,7 +90,7 @@ const Todo = () => {
     if (!editingTodo) return
 
     try {
-      const response = await fetch(`${API_URL}/api/todos/${editingTodo.id}`, {
+      const response = await fetch(`${API_URL}/todos/${editingTodo.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editingTodo),
