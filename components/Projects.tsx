@@ -27,14 +27,16 @@ const projects: Project[] = [
     description: 'Implementation of various machine learning algorithms including SVM, K-Means Clustering, and Bayesian Classifier for data analysis and classification.',
     technologies: ['Python', 'Machine Learning', 'Scikit-learn', 'Pandas', 'Matplotlib'],
     image: '/machine-learning.png',
-    link: 'https://github.com/scottfabini/machine-learning-perceptron'
+    link: 'https://github.com/scottfabini/machine-learning-perceptron',
+    githubLink: 'https://github.com/scottfabini/machine-learning-perceptron'
   },
   {
     title: 'AI Portfolio',
     description: 'A modern portfolio website that leverages AI to create beautifully styled web content.',
     technologies: ['Cursor', 'Claude Sonnet 3.7', 'Next.js', 'TypeScript', 'Tailwind CSS'],
     image: '/ai-portfolio.png',
-    link: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'http://scottfabini.com'
+    link: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'http://scottfabini.com',
+    githubLink: 'https://github.com/scottfabini/ai-portfolio'
   },
   {
     title: 'Todo List',
@@ -49,28 +51,32 @@ const projects: Project[] = [
     description: 'A strategic board game implementation with Java and Android, featuring game logic and multiplayer capabilities.',
     technologies: ['Java', 'Android', 'Game Logic', 'UI/UX'],
     image: '/gomoku.png',
-    link: 'https://github.com/tsundin/CS454Group6_Gomoku'
+    link: 'https://github.com/tsundin/CS454Group6_Gomoku',
+    githubLink: 'https://github.com/tsundin/CS454Group6_Gomoku'
   },
   {
     title: 'Original Portfolio',
     description: 'A previous version of my portfolio website showcasing my earlier work and projects.',
     technologies: ['React', 'JavaScript', 'CSS'],
     image: '/original-portfolio.png',
-    link: 'http://scottfabini.com'
+    link: 'http://scottfabini.com',
+    githubLink: 'https://github.com/scottfabini/portfolio'
   },
   {
     title: 'Calendar',
     description: 'A full-stack calendar application with Node.js backend deployed on AWS EC2, featuring a RESTful API for appointment management.',
     technologies: ['Node.js', 'EC2', 'REST API', 'MongoDB'],
     image: '/calendar.png',
-    link: 'https://github.com/scottfabini/apptbook'
+    link: 'https://github.com/scottfabini/apptbook',
+    githubLink: 'https://github.com/scottfabini/apptbook'
   },
   {
     title: 'Album Notes',
     description: 'A modern web application for managing and organizing music album notes, built with React and modern JavaScript features.',
     technologies: ['React', 'ES6', 'CSS', 'JavaScript'],
     image: '/album-notes.png',
-    link: 'https://github.com/scottfabini/album-notes'
+    link: 'https://github.com/scottfabini/album-notes',
+    githubLink: 'https://github.com/scottfabini/album-notes'
   }
 ]
 
