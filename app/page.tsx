@@ -13,8 +13,8 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Projects />
-      <Education />
       <Experience />
+      <Education />
       <About />
       <Skills />
     </main>
