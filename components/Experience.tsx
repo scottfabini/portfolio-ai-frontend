@@ -21,7 +21,7 @@ const experience: Experience[] = [
     company: 'Adobe / Marketo',
     positions: [{
       title: 'Senior Software Engineer - Customer Engineering Team',
-      description: `• Break-down our two largest customers' performance bottlenecks and pain points, enabling scalability over the past 8 years. Built up support for 1k+ users, 1M+ assets, 100M+ leads and 10B+ activities per year.
+      description: `• Break-down our two largest customers' performance bottlenecks and pain points, enabling scalability over the past 8 years. Built up support for 1k+ users, 1M+ assets, 100M+ leads and 10B+ activities per year
 • Co-architect on platform data-streams project, enabling customers to leverage their data to build automation at scale 
 •  Product Management and Architecture background to drive roadmap and strategy to meet enterprise customer needs`
     }],
