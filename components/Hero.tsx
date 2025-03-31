@@ -38,7 +38,7 @@ const Hero = () => {
               <span className="text-[rgb(261,51,32)]">Adobe</span> / <span className="text-[rgb(147,51,234)]">Marketo</span>
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              Solving our largest customer's scalability problems, driving roadmap and strategy to meet enterprise customer needs.
+              Solving our largest customer's scalability problems, driving roadmap and strategy to meet enterprise customer needs
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
               <a
