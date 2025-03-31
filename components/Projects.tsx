@@ -31,7 +31,7 @@ const projects: Project[] = [
   },
   {
     title: 'AI Portfolio',
-    description: 'A modern portfolio website that leverages AI to create dynamic content and personalized experiences for visitors.',
+    description: 'A modern portfolio website that leverages AI to create beautifully styled web content.',
     technologies: ['Cursor', 'Claude Sonnet 3.7', 'Next.js', 'TypeScript', 'Tailwind CSS'],
     image: '/ai-portfolio.png',
     link: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'http://scottfabini.com'
@@ -39,7 +39,7 @@ const projects: Project[] = [
   {
     title: 'Todo List',
     description: 'A full-stack todo list application with real-time updates, built with Next.js and Spring Boot.',
-    technologies: ['Next.js', 'Spring Boot', 'MySQL', 'Docker'],
+    technologies: ['Next.js', 'Spring Boot', 'MySQL', 'Docker', 'Claude Sonnet 3.7'],
     image: '/todo.png',
     link: '/todo',
     githubLink: 'https://github.com/scottfabini/ai-portfolio'
