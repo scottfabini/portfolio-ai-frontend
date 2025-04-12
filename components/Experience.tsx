@@ -49,7 +49,7 @@ const experience: Experience[] = [
     company: 'Radisys',
     positions: [{
       title: 'Product Line Manager / Systems Architect',
-      description: `• Developed business case justifying the project and presented to executive management for project approval
+      description: `• Developed business case justifying the project and presented to executive management
 • Defined hardware architecture and software requirements
 • Drove the project schedule, ensuring engineering team met deliverables
 • Engaged in face-to-face meetings with customers to drive sales
