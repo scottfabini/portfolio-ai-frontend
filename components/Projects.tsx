@@ -59,7 +59,7 @@ const projects: Project[] = [
     description: 'A previous version of my portfolio website showcasing my earlier work and projects.',
     technologies: ['React', 'JavaScript', 'CSS'],
     image: '/original-portfolio.png',
-    link: 'http://scottfabini.com',
+    link: 'https://main.d2mpb5u1bq2pqq.amplifyapp.com/',
     githubLink: 'https://github.com/scottfabini/portfolio'
   },
   {
