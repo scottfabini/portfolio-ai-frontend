@@ -56,7 +56,7 @@ const experience: Experience[] = [
 • Product annual revenues ranged from $3M-$15M`
     }],
     startDate: '2010',
-    endDate: '2014',
+    endDate: '2015',
     technologies: ['COM-Express', 'Intel', 'PowerPC', '2U Server'],
   },
   {
