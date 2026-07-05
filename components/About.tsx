@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { motion } from 'framer-motion'
+import React from "react";
+import { motion } from "framer-motion";
 
 const About = () => {
   return (
@@ -33,26 +33,49 @@ const About = () => {
             <div className="space-y-6">
               <div className="prose dark:prose-invert max-w-none">
                 <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-                  As a Senior Software Engineer on the Customer Engineering Team at Adobe, I specialize in transforming complex technical challenges into customer success stories. My role uniquely combines deep technical expertise with customer-facing responsibilities, allowing me to bridge the gap between engineering and customer needs.
+                  As a Senior Software Engineer on the Customer Engineering Team
+                  at Adobe, I specialize in transforming complex technical
+                  challenges into customer success stories. My role uniquely
+                  combines deep technical expertise with customer-facing
+                  responsibilities, allowing me to bridge the gap between
+                  engineering and customer needs.
                 </p>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                   <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
-                    <h3 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">Performance Optimization</h3>
-                    <p className="text-gray-700 dark:text-gray-300">Scaled systems to handle 100M+ leads and billions of activities annually</p>
+                    <h3 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">
+                      Performance Optimization
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      Scaled systems to handle 100M+ leads and billions of
+                      activities annually
+                    </p>
                   </div>
                   <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
-                    <h3 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">Customer-Centric Development</h3>
-                    <p className="text-gray-700 dark:text-gray-300">Drive product roadmap decisions and architectural improvements</p>
+                    <h3 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">
+                      Customer-Centric Development
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      Drive product roadmap decisions and architectural
+                      improvements
+                    </p>
                   </div>
                   <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
-                    <h3 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">Technical Leadership</h3>
-                    <p className="text-gray-700 dark:text-gray-300">Co-architected platform data-streams and mentor team members</p>
+                    <h3 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">
+                      Technical Leadership
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      Co-architected platform data-streams and mentor team
+                      members
+                    </p>
                   </div>
                 </div>
 
                 <p className="text-lg leading-relaxed mt-8 text-gray-600 dark:text-gray-300">
-                  My background in hardware engineering and software development provides a unique perspective on system architecture. This diverse experience enables me to deliver comprehensive solutions that address both technical and business needs.
+                  My background in hardware engineering and software development
+                  provides a unique perspective on system architecture. This
+                  diverse experience enables me to deliver comprehensive
+                  solutions that address both technical and business needs.
                 </p>
               </div>
             </div>
@@ -60,7 +83,7 @@ const About = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default About 
+export default About;
