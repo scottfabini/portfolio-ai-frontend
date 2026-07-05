@@ -57,6 +57,24 @@ const Hero = () => {
                 <ArrowTopRightOnSquareIcon className="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
               <a
+                href="/Scott_Fabini_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary flex items-center gap-2 group text-lg px-8 py-4 w-full sm:w-auto justify-center"
+              >
+                <svg
+                  className="w-6 h-6 text-current"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Resume
+                <ArrowTopRightOnSquareIcon className="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+              <a
                 href="https://www.linkedin.com/in/scott-fabini/"
                 target="_blank"
                 rel="noopener noreferrer"
