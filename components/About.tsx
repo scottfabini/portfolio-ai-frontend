@@ -33,49 +33,53 @@ const About = () => {
             <div className="space-y-6">
               <div className="prose dark:prose-invert max-w-none">
                 <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-                  As a Senior Software Engineer on the Customer Engineering Team
-                  at Adobe, I specialize in transforming complex technical
-                  challenges into customer success stories. My role uniquely
-                  combines deep technical expertise with customer-facing
-                  responsibilities, allowing me to bridge the gap between
-                  engineering and customer needs.
+                  As a Senior Software Engineer on Adobe&apos;s Customer Engineering
+                  Team, I specialize in owning hard technical problems end-to-end
+                  for our largest enterprise accounts, from root-cause diagnosis
+                  through production fixes. My role uniquely combines deep
+                  technical depth with customer-facing responsibility, bridging
+                  the gap between engineering and customer needs.
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                   <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
                     <h3 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">
-                      Performance Optimization
+                      Database Migration at Scale
                     </h3>
                     <p className="text-gray-700 dark:text-gray-300">
-                      Scaled systems to handle 100M+ leads and billions of
-                      activities annually
+                      Led the AWS Aurora migration, pruning 30TB+ and 20B+ rows
+                      and cutting downtime from 1000+ minutes to a 99.9%
+                      availability SLA
                     </p>
                   </div>
                   <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
                     <h3 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">
-                      Customer-Centric Development
+                      Revenue-Generating Systems
                     </h3>
                     <p className="text-gray-700 dark:text-gray-300">
-                      Drive product roadmap decisions and architectural
-                      improvements
+                      Designed a Splunk-based Performance Tiers system that
+                      generated $10M in first-year revenue
                     </p>
                   </div>
                   <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
                     <h3 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">
-                      Technical Leadership
+                      Embedded Technical Leadership
                     </h3>
                     <p className="text-gray-700 dark:text-gray-300">
-                      Co-architected platform data-streams and mentor team
-                      members
+                      Spent 7 years as the primary customer-facing technical
+                      lead for AWS, Adobe&apos;s largest customer
                     </p>
                   </div>
                 </div>
 
                 <p className="text-lg leading-relaxed mt-8 text-gray-600 dark:text-gray-300">
-                  My background in hardware engineering and software development
-                  provides a unique perspective on system architecture. This
-                  diverse experience enables me to deliver comprehensive
-                  solutions that address both technical and business needs.
+                  Before software, I spent 10 years in hardware systems
+                  architecture at Motorola and Radisys, including a
+                  co-invented patent for a re-configurable PCI-Express
+                  switching device, a background that still shapes how I
+                  think about systems end-to-end. More recently, I&apos;ve
+                  been exploring how tools like Claude, LLM Skills, and MCP
+                  can streamline enhancement workflows on our platform.
                 </p>
               </div>
             </div>
