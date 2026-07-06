@@ -19,15 +19,30 @@ interface Experience {
 const experience: Experience[] = [
   {
     company: 'Adobe / Marketo',
-    positions: [{
-      title: 'Senior Software Engineer - Customer Engineering Team',
-      description: `• Break-down our two largest customers' performance bottlenecks and pain points, enabling scalability over the past 8 years. Built up support for 1k+ users, 1M+ assets, 100M+ leads and 10B+ activities per year
-• Co-architect on platform data-streams project, enabling customers to leverage their data to build automation at scale 
-•  Product Management and Architecture background to drive roadmap and strategy to meet enterprise customer needs`
-    }],
+    positions: [
+      {
+        title: 'Senior Software Engineer - Customer Engineering',
+        description: `• Led the Aurora migration, pruning 30TB+ and 20B+ rows and cutting UI downtime from 1000+ minutes to a 99.9% SLA for AWS, our largest customer
+• Designed a Splunk-based Performance Tiers system generating $10M in first-year revenue
+• Drove a Smart Campaign POST API enhancement positioning the platform for agentic workflow automation via LLM Skills and MCP
+• Built a Claude Skill automating enhancement-request submission through Jira, used to process 26 team requests
+• Compiled CSO and RCA data to defend against $100K+ per-incident service credit claims`
+      },
+      {
+        title: 'Software Engineer',
+        description: `• Designed a Java Spring Boot microservices suite streaming platform events over Kafka, enabling 10 enterprise customers to audit activity and monitor usage
+• Benchmarked MySQL scalability across Google Cloud and AWS Aurora, achieving 80K queries/second and confirming a cloud migration was viable at scale
+• Served as Customer Lead for AWS for 4 years, driving dozens of RCAs and enhancement requests as the primary embedded technical point of contact`
+      },
+      {
+        title: 'Associate Software Engineer',
+        description: `• Reduced navigation tree load time from 20 seconds to under 2 seconds for Microsoft, our largest customer at the time, by fixing a memory-inefficient deserialization step
+• Extended the Smart Campaign API to support GET queries, laying groundwork for customer-built campaign automation`
+      },
+    ],
     startDate: '2017',
     endDate: 'Present',
-    technologies: ['Performance', 'MySQL', 'Splunk', 'New Relic', 'Java', 'Kafka', 'Solr'],
+    technologies: ['AWS', 'MySQL', 'Splunk', 'Java', 'Spring Boot', 'Kafka', 'Claude', 'MCP'],
   },
   {
     company: 'Portland State University',
@@ -48,29 +63,25 @@ const experience: Experience[] = [
   {
     company: 'Radisys',
     positions: [{
-      title: 'Product Line Manager / Systems Architect',
-      description: `• Developed business case justifying the project and presented to executive management
-• Defined hardware architecture and software requirements
-• Drove the project schedule, ensuring engineering team met deliverables
-• Engaged in face-to-face meetings with customers to drive sales
-• Product annual revenues ranged from $3M-$15M`
+      title: 'Product Line Manager',
+      description: `• Developed business cases for 4 generations of Intel Core/Atom processors in small form factor motherboards, driving revenues ranging from $3M-$15M
+• Contributed to the PICMG standards committee defining the COM Express hardware specification`
     }],
     startDate: '2010',
-    endDate: '2015',
-    technologies: ['COM-Express', 'Intel', 'PowerPC', '2U Server'],
+    endDate: '2014',
+    technologies: ['COM Express', 'Intel', 'PICMG'],
   },
   {
     company: 'Motorola',
     positions: [{
-      title: 'Systems Architect / Hardware Engineer',
-      description: `• Defined hardware architecture for CompactPCI and AdvancedTCA high-availability (5-nines) telecom systems
-• Designed Backplanes, I/O Transition Modules, and an IPMI Management Controller featuring a 150k gate FPGA
-• Led system integration and testing for high-availability telecom platforms
-• Collaborated with cross-functional teams to deliver enterprise-grade solutions`
+      title: 'Systems Architect',
+      description: `• Defined hardware architecture for 40GbE routers, dual-socket compute blades, power supplies and backplanes for 99.999% high-availability telecom products
+• Led hardware architecture for a 15-engineer design team in Shenzhen, China
+• Co-inventor, US Patent 7,516,263: Re-configurable PCI-Express switching device`
     }],
     startDate: '2000',
     endDate: '2010',
-    technologies: ['5 Nines', 'IPMI', 'Telecom Backplane'],
+    technologies: ['40GbE', 'High Availability', 'PCI-Express'],
   },
 ]
 
