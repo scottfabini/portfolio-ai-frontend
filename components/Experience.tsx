@@ -25,8 +25,7 @@ const experience: Experience[] = [
         description: `• Led the Aurora migration, pruning 30TB+ and 20B+ rows and cutting UI downtime from 1000+ minutes to a 99.9% SLA for AWS, our largest customer
 • Designed a Splunk-based Performance Tiers system generating $10M in first-year revenue
 • Drove a Smart Campaign POST API enhancement positioning the platform for agentic workflow automation via LLM Skills and MCP
-• Built a Claude Skill automating enhancement-request submission through Jira, used to process 26 team requests
-• Compiled CSO and RCA data to defend against $100K+ per-incident service credit claims`
+• Built a Claude Skill automating enhancement-request submission through Jira, used to process 26 team requests`
       },
       {
         title: 'Software Engineer',
