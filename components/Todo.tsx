@@ -75,7 +75,8 @@ const Todo = () => {
     }
   }
 
-  const handleCreateTodo = async () => {
+  const handleCreateTodo = async (e: React.FormEvent) => {
+    e.preventDefault()
     if (!newTodo.title.trim()) return
 
     try {
