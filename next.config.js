@@ -4,11 +4,25 @@ const nextConfig = {
   swcMinify: true,
   output: 'export',
   trailingSlash: true,
-  images: {
-    unoptimized: true,
+  // Cross-origin isolation (SharedArrayBuffer) for sqlite-wasm's OPFS VFS.
+  // Applies to `next dev`; static hosting sets the same headers in amplify.yml.
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+          { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
+        ],
+      },
+    ]
   },
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080',
+    // Path segment under /sqlite-wasm/ (see scripts/copy-sqlite-wasm.js)
+    NEXT_PUBLIC_SQLITE_WASM_VERSION: require('@sqlite.org/sqlite-wasm/package.json').version,
+  },
+  images: {
+    unoptimized: true,
   },
   // During build, copy our custom index.html to the out directory
   webpack: (config, { isServer }) => {

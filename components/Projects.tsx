@@ -59,12 +59,13 @@ const projects: Project[] = [
   {
     title: "Todo List",
     description:
-      "A full-stack todo list application with real-time updates, built with Next.js and Spring Boot.",
+      "A todo list that runs entirely in your browser: SQLite compiled to WebAssembly, persisted in the Origin Private File System, with drag-to-reorder and live updates across tabs. Built with Next.js.",
     technologies: [
       "Next.js",
-      "Spring Boot",
-      "MySQL",
-      "Docker",
+      "SQLite (WASM)",
+      "OPFS",
+      "Web Workers",
+      "dnd-kit",
       "Claude Sonnet 3.7",
     ],
     image: "/todo.png",

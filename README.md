@@ -44,20 +44,14 @@ npm install
 yarn
 ```
 
-3. Set up environment variables:
-Create a `.env.local` file in the root directory:
-```
-NEXT_PUBLIC_API_URL=http://localhost:8080/api
-```
-
-4. Start the development server:
+3. Start the development server:
 ```bash
 npm run dev
 # or
 yarn dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
 ## Project Structure
 
@@ -132,8 +126,6 @@ This project is configured for deployment on AWS Amplify:
 2. Configure the build settings:
    - Build command: `npm run build`
    - Output directory: `out`
-3. Add environment variables:
-   - `NEXT_PUBLIC_API_URL`: URL of your deployed backend API
 
 ## Contributing
 

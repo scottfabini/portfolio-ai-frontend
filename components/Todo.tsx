@@ -2,144 +2,148 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Bars2Icon } from '@heroicons/react/24/outline'
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core'
+import {
+  SortableContext,
+  arrayMove,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+import {
+  type Todo as TodoItem,
+  initDb,
+  listTodos,
+  createTodo,
+  updateTodo,
+  deleteTodo,
+  onTodosChanged,
+  reorderTodos,
+} from '@/lib/todoDb'
 
-// Add a type definition for the window.ENV object
-declare global {
-  interface Window {
-    ENV?: {
-      NEXT_PUBLIC_API_URL: string;
-    };
-  }
+// Positions a row via dnd-kit's transform. The row's own motion.div (enter/exit animation) lives
+// inside it, so the two libraries never animate the same element.
+type DragHandleProps = {
+  attributes: ReturnType<typeof useSortable>['attributes']
+  listeners: ReturnType<typeof useSortable>['listeners']
+  setActivatorNodeRef: (el: HTMLElement | null) => void
 }
 
-interface Todo {
+const SortableRow = ({
+  id,
+  children,
+}: {
   id: number
-  title: string
-  description: string
-  completed: boolean
-  createdAt: string
-  updatedAt: string
+  children: (handle: DragHandleProps) => React.ReactNode
+}) => {
+  const { attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging } =
+    useSortable({ id })
+  return (
+    <div
+      ref={setNodeRef}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition,
+        position: 'relative',
+        zIndex: isDragging ? 10 : undefined,
+      }}
+    >
+      {children({ attributes, listeners, setActivatorNodeRef })}
+    </div>
+  )
 }
 
 const Todo = () => {
-  const [todos, setTodos] = useState<Todo[]>([])
+  const [todos, setTodos] = useState<TodoItem[]>([])
   const [newTodo, setNewTodo] = useState({ title: '', description: '' })
-  const [editingTodo, setEditingTodo] = useState<Todo | null>(null)
+  const [editingTodo, setEditingTodo] = useState<TodoItem | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [notice, setNotice] = useState<string | null>(null)
 
-  // Get the API URL from window.ENV if available (for production) or fallback to process.env (for development)
-  const getApiUrl = () => {
-    if (typeof window !== 'undefined' && window.ENV?.NEXT_PUBLIC_API_URL) {
-      return window.ENV.NEXT_PUBLIC_API_URL;
-    }
-    return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
-  };
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  )
 
-  const getApiEndpoint = () => {
-    // Get the base URL
-    const baseUrl = getApiUrl();
-    console.log('Base URL:', baseUrl);
-    
-    // Check if it already includes /api
-    if (baseUrl.endsWith('/api')) {
-      return `${baseUrl}/todos`;
-    } else {
-      return `${baseUrl}/api/todos`;
-    }
-  };
-
-  // Use this for all API calls
-  const API_ENDPOINT = getApiEndpoint();
-  
   useEffect(() => {
-    console.log('Using API endpoint:', API_ENDPOINT);
-    fetchTodos();
-  }, [])
-  
-  const fetchTodos = async () => {
-    try {
-      setIsLoading(true)
-      const response = await fetch(API_ENDPOINT)
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
+    const load = async () => {
+      try {
+        const info = await initDb()
+        if (!info.persistent) {
+          setNotice(
+            "Browser storage (OPFS) isn't available here, so todos won't persist after reload." +
+              (info.reason ? ` (${info.reason})` : '')
+          )
+        } else if (info.mode === 'opfs-sahpool') {
+          setNotice(
+            'Running in single-tab mode: changes in other tabs will not be shared.' +
+              (info.reason ? ` (${info.reason})` : '')
+          )
+        }
+        setTodos(await listTodos())
+        setError(null)
+      } catch (err) {
+        console.error('Error loading todos:', err)
+        setError('Failed to load todos from the in-browser database.')
+      } finally {
+        setIsLoading(false)
       }
-      const data = await response.json()
-      setTodos(data)
-      setError(null)
-    } catch (err) {
-      console.error('Error fetching todos:', err)
-      setError('Failed to load todos. Backend is not deployed at this time.')
-    } finally {
-      setIsLoading(false)
     }
-  }
+    load()
+
+    // Another tab changed the shared database: re-query so this tab updates live.
+    return onTodosChanged(() => {
+      listTodos()
+        .then((fresh) => {
+          setTodos(fresh)
+          setEditingTodo((cur) => (cur && fresh.some((t) => t.id === cur.id) ? cur : null))
+        })
+        .catch((err) => console.error('Error refreshing todos:', err))
+    })
+  }, [])
 
   const handleCreateTodo = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!newTodo.title.trim()) return
 
     try {
-      const response = await fetch(API_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newTodo),
-      })
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
-      }
-
-      const createdTodo = await response.json()
+      const createdTodo = await createTodo(newTodo)
       setTodos([...todos, createdTodo])
       setNewTodo({ title: '', description: '' })
     } catch (err) {
       console.error('Error creating todo:', err)
-      setError('Failed to create todo. Backend is not deployed at this time.')
+      setError('Failed to create todo.')
     }
   }
 
-  const handleToggleComplete = async (todo: Todo) => {
+  const handleToggleComplete = async (todo: TodoItem) => {
     try {
-      const updatedTodo = { ...todo, completed: !todo.completed }
-      const response = await fetch(`${API_ENDPOINT}/${todo.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedTodo),
-      })
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
-      }
-
-      const returnedTodo = await response.json()
-      setTodos(
-        todos.map((t) => (t.id === returnedTodo.id ? returnedTodo : t))
-      )
+      const returnedTodo = await updateTodo({ ...todo, completed: !todo.completed })
+      setTodos(todos.map((t) => (t.id === returnedTodo.id ? returnedTodo : t)))
     } catch (err) {
       console.error('Error updating todo:', err)
-      setError('Failed to update todo. Backend is not deployed at this time.')
+      setError('Failed to update todo.')
     }
   }
 
-  const handleDeleteTodo = async (todo: Todo) => {
+  const handleDeleteTodo = async (todo: TodoItem) => {
     try {
-      const response = await fetch(`${API_ENDPOINT}/${todo.id}`, {
-        method: 'DELETE',
-      })
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
-      }
-
+      await deleteTodo(todo.id)
       setTodos(todos.filter((t) => t.id !== todo.id))
     } catch (err) {
       console.error('Error deleting todo:', err)
-      setError('Failed to delete todo. Backend is not deployed at this time.')
+      setError('Failed to delete todo.')
     }
   }
 
@@ -148,18 +152,28 @@ const Todo = () => {
     if (!editingTodo) return
 
     try {
-      const response = await fetch(`${API_ENDPOINT}/${editingTodo.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(editingTodo),
-      })
-      if (!response.ok) throw new Error('Failed to update todo')
-      const data = await response.json()
-      setTodos(todos.map(todo => todo.id === editingTodo.id ? data : todo))
+      const data = await updateTodo(editingTodo)
+      setTodos(todos.map((todo) => (todo.id === editingTodo.id ? data : todo)))
       setEditingTodo(null)
     } catch (err) {
       setError('Failed to update todo')
       console.error(err)
+    }
+  }
+
+  const handleDragEnd = async ({ active, over }: DragEndEvent) => {
+    if (!over || active.id === over.id) return
+    const from = todos.findIndex((t) => t.id === active.id)
+    const to = todos.findIndex((t) => t.id === over.id)
+    if (from < 0 || to < 0) return
+    const reordered = arrayMove(todos, from, to)
+    setTodos(reordered) // optimistic
+    try {
+      await reorderTodos(reordered.map((t) => t.id))
+    } catch (err) {
+      console.error('Error reordering todos:', err)
+      setError('Failed to reorder todos.')
+      setTodos(await listTodos()) // restore the persisted order
     }
   }
 
@@ -188,6 +202,12 @@ const Todo = () => {
             Manage your tasks efficiently
           </p>
         </motion.div>
+
+        {notice && (
+          <div className="bg-yellow-100 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 p-4 rounded-lg mb-6">
+            {notice}
+          </div>
+        )}
 
         {error && (
           <div className="bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-4 rounded-lg mb-6">
@@ -222,10 +242,13 @@ const Todo = () => {
             </div>
           </form>
 
+          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={todos.map((t) => t.id)} strategy={verticalListSortingStrategy}>
           <AnimatePresence>
             {todos.map((todo) => (
+              <SortableRow key={todo.id} id={todo.id}>
+              {({ attributes, listeners, setActivatorNodeRef }) => (
               <motion.div
-                key={todo.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, x: -100 }}
@@ -263,6 +286,16 @@ const Todo = () => {
                   </form>
                 ) : (
                   <div className="flex items-start gap-4">
+                    <button
+                      type="button"
+                      ref={setActivatorNodeRef}
+                      {...attributes}
+                      {...listeners}
+                      aria-label={`Reorder ${todo.title}`}
+                      className="mt-0.5 p-0.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 cursor-grab active:cursor-grabbing touch-none focus:outline-none focus:ring-2 focus:ring-primary-500 rounded"
+                    >
+                      <Bars2Icon className="w-5 h-5" />
+                    </button>
                     <button
                       onClick={() => handleToggleComplete(todo)}
                       className={`mt-1 w-5 h-5 rounded-full border-2 flex items-center justify-center ${
@@ -350,8 +383,12 @@ const Todo = () => {
                   </div>
                 )}
               </motion.div>
+              )}
+              </SortableRow>
             ))}
           </AnimatePresence>
+          </SortableContext>
+          </DndContext>
 
           {todos.length === 0 && !isLoading && (
             <div className="text-center text-gray-500 dark:text-gray-400">

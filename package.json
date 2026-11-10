@@ -3,14 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/copy-sqlite-wasm.js",
     "dev": "next dev",
+    "prebuild": "node scripts/copy-sqlite-wasm.js",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "update-env": "node scripts/update-env.js"
+    "lint": "next lint"
   },
   "dependencies": {
+    "@dnd-kit/core": "6.3.1",
+    "@dnd-kit/sortable": "10.0.0",
+    "@dnd-kit/utilities": "3.2.2",
     "@heroicons/react": "^2.1.1",
+    "@sqlite.org/sqlite-wasm": "3.54.1-build1",
     "framer-motion": "^11.0.3",
     "next": "14.1.0",
     "next-themes": "^0.2.1",
