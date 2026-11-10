@@ -76,10 +76,9 @@ const About = () => {
                   Before software, I spent 10 years in hardware systems
                   architecture at Motorola and Radisys, including a
                   co-invented patent for a re-configurable PCI-Express
-                  switching device, a background that still shapes how I
-                  think about systems end-to-end. More recently, I&apos;ve
-                  been exploring how tools like Claude, LLM Skills, and MCP
-                  can streamline enhancement workflows on our platform.
+                  switching device. More recently, I&apos;ve been exploring
+                  how tools like Claude, LLM Skills, and MCP can streamline
+                  enhancement workflows on our platform.
                 </p>
               </div>
             </div>
